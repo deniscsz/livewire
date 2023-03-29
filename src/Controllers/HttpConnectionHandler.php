@@ -37,6 +37,10 @@ class HttpConnectionHandler extends ConnectionHandler
                 $originalUrl .= '/';
             }
 
+            if (config('livewire.asset_url')) {
+                $originalUrl = str_replace(config('livewire.asset_url'), '', $originalUrl);
+            }
+
             $request = $this->makeRequestFromUrlAndMethod(
                 $originalUrl,
                 Livewire::originalMethod()
@@ -50,6 +54,10 @@ class HttpConnectionHandler extends ConnectionHandler
             // a prefix is used (such as running Laravel in a subdirectory).
             if (Livewire::originalPath() == request('fingerprint')['locale']) {
                 $originalUrl .= '/';
+            }
+
+            if (config('livewire.asset_url')) {
+                $originalUrl = str_replace(config('livewire.asset_url'), '', $originalUrl);
             }
 
             $request = $this->makeRequestFromUrlAndMethod(
